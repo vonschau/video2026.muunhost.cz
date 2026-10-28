@@ -10,7 +10,7 @@ const libreFranklin = Libre_Franklin({
 export const metadata: Metadata = {
   title: "Video 2026 | Město Unhošť",
   description:
-    "Stránka pro nahrávání videí k promítání v Unhošti v roce 2026 se připravuje.",
+    "Stránka pro nahrávání osobních videí o životě v Unhošti v roce 2026 se připravuje. Videa se mohou zařadit do promítání 1. ledna 2027 na náměstí.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

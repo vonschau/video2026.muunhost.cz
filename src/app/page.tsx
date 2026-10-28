@@ -21,14 +21,15 @@ export default function Home() {
           className="h-auto w-48 sm:w-56"
         />
         <p className="mt-8 text-sm font-semibold tracking-[0.18em] text-unhost-blue uppercase">
-          Promítání 2026
+          Život v Unhošti 2026
         </p>
         <h1 className="mt-3 text-4xl font-bold tracking-tight text-unhost-navy sm:text-5xl">
           Stránka se připravuje
         </h1>
-        <p className="mt-5 max-w-md text-lg leading-8 text-ink">
-          Připravujeme místo, kam budete moci nahrát video pro promítání
-          v&nbsp;Unhošti v&nbsp;roce 2026.
+        <p className="mt-5 max-w-lg text-lg leading-8 text-ink">
+          Připravujeme místo, kam budete moci nahrát osobní videa o&nbsp;životě
+          v&nbsp;Unhošti v&nbsp;roce 2026. Mohou se zařadit do velkého videa,
+          které se 1.&nbsp;ledna 2027 tradičně promítá na&nbsp;náměstí.
         </p>
       </main>
 
