@@ -27,7 +27,7 @@ Ve formuláři jsou celé informace sbalené. Rozbalí se odkazem „Celé infor
 
 Soubor nejde přes serverless funkci. Prohlížeč ho posílá rovnou do Blobu. Limit je 2 GB (`2 * 1024^3` bajtů). Povolené přípony jsou mp4, m4v, mov, webm, mkv, avi, mpeg, mpg a 3gp.
 
-1. `POST /api/prispevky` ověří jméno, e-mail, telefon, typ a velikost souboru, verzi souhlasu a všechna čtyři potvrzení. Prázdné pole `fax` je past na roboty; vyplněné se tiše odmítne. Vznikne koncept `drafts/{uuid}.json` se stavem `pending` a plánovanou cestou `videos/{uuid}/{nazev}`.
+1. `POST /api/prispevky` ověří jméno, e-mail, telefon, popis videa, typ a velikost souboru, verzi souhlasu a všechna čtyři potvrzení. Prázdné pole `fax` je past na roboty; vyplněné se tiše odmítne. Vznikne koncept `drafts/{uuid}.json` se stavem `pending` a plánovanou cestou `videos/{uuid}/{nazev}`.
 2. Prohlížeč zavolá `upload()` z `@vercel/blob/client` na `POST /api/upload`. Token platí 3 hodiny, soubor nad 4 MB jde po částech, přístup je `private`. Server token vydá jen k existujícímu konceptu a jen na jeho cestu.
 3. `POST /api/prispevky/{id}` koncept uzavře: ověří velikost a typ přes `head`, zapíše `submissions/{id}.json` se stavem `complete` a koncept smaže. Stejný krok umí udělat webhook `onUploadCompleted`. Na localhostu webhook neběží, proto je dokončení z prohlížeče směrodatné. Oba vstupy jsou idempotentní.
 4. Zrušení nebo selhání před uzavřením volá `DELETE /api/prispevky/{id}` a smaže rozpracované video i JSON. Když koncept už neexistuje a hotový záznam taky ne, osiřelý soubor se zahodí.
@@ -43,7 +43,7 @@ IP adresa se neukládá. U záznamu zůstane oříznutý `User-Agent` (nejvýš 
 | Cesta | Obsah |
 | --- | --- |
 | `drafts/{uuid}.json` | Rozpracovaný příspěvek. |
-| `submissions/{uuid}.json` | Hotový příspěvek: kontakt, znění souhlasů, název souboru, velikost, časy. |
+| `submissions/{uuid}.json` | Hotový příspěvek: kontakt, popis videa, znění souhlasů, název souboru, velikost, časy. |
 | `videos/{uuid}/{nazev}` | Samotné video. |
 
 Správa čte jen `submissions/`. Seznam vznikne vypsáním prefixu a přečtením jednotlivých JSON (po osmi najednou), seřazený od nejnovějšího. Pro desítky až nízké stovky příspěvků stačí. Databáze by začala dávat smysl až u tisíců záznamů, které se mají filtrovat.
@@ -56,7 +56,7 @@ Surové nahrávky nejsou veřejné. Text na stránce říká, že kontakt a vide
 
 Čtyři samostatná, nepředzaškrtnutá potvrzení: věk (15 let, nebo zákonný zástupce), souhlas se zpracováním údajů, bezúplatná nevýhradní licence a prohlášení o právech k záznamu. Znění je v `src/lib/consent.ts`. Server si do záznamu uloží kanonický text, ne to, co pošle prohlížeč.
 
-`CONSENT_VERSION` se zvedne, když se změní věty, které lidé odsouhlasí. Teď je `2026-10-29-2`. Starší příspěvky si nesou znění z doby odeslání.
+`CONSENT_VERSION` se zvedne, když se změní věty, které lidé odsouhlasí. Teď je `2026-10-29-3`. Starší příspěvky si nesou znění z doby odeslání.
 
 ## Správa
 

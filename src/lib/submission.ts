@@ -8,6 +8,8 @@ const UUID =
 
 export type SubmissionStatus = "pending" | "complete";
 
+export const MAX_DESCRIPTION_LENGTH = 1000;
+
 export type SubmissionRecord = {
   recordVersion: 1;
   id: string;
@@ -17,6 +19,7 @@ export type SubmissionRecord = {
   name: string;
   email: string;
   phone: string;
+  description: string;
   consentVersion: string;
   consentText: Record<ConsentKey, string>;
   userAgent: string;
@@ -31,6 +34,7 @@ export type DraftInput = {
   name: string;
   email: string;
   phone: string;
+  description: string;
   originalName: string;
   fileSize: number;
   consentVersion: string;
@@ -67,6 +71,10 @@ export function validateDraft(input: DraftInput): string | null {
 
   const phone = czechPhone(input.phone);
   if (!phone) return "Napište telefon, na který se vám dá ozvat.";
+
+  const description = cleanDescription(input.description);
+  if (description.length < 3) return "Napište, co je na videu.";
+  if (description.length > MAX_DESCRIPTION_LENGTH) return "Popis videa je příliš dlouhý.";
 
   if (!videoFileName(input.originalName)) {
     return "Video nahrajte jako MP4, MOV, WebM, MKV, AVI, MPEG nebo 3GP.";
@@ -110,6 +118,7 @@ export function normalizeDraft(input: DraftInput): Omit<
     name: cleanName(input.name),
     email: input.email.trim().toLowerCase(),
     phone,
+    description: cleanDescription(input.description),
     consentVersion: CONSENT_VERSION,
     consentText: Object.fromEntries(
       consentFields.map((field) => [field.key, field.text]),
@@ -130,6 +139,7 @@ export function isSubmissionRecord(value: unknown): value is SubmissionRecord {
   if (typeof value.name !== "string") return false;
   if (typeof value.email !== "string") return false;
   if (typeof value.phone !== "string") return false;
+  if (typeof value.description !== "string") return false;
   if (typeof value.consentVersion !== "string") return false;
   if (!isRecord(value.consentText)) return false;
   if (typeof value.userAgent !== "string") return false;
@@ -143,6 +153,16 @@ export function isSubmissionRecord(value: unknown): value is SubmissionRecord {
 
 export function cleanName(value: string): string {
   return value.trim().replace(/\s+/g, " ");
+}
+
+export function cleanDescription(value: string): string {
+  return value
+    .replace(/\r\n/g, "\n")
+    .split("\n")
+    .map((line) => line.trim().replace(/[ \t]+/g, " "))
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

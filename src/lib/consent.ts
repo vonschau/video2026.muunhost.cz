@@ -11,7 +11,7 @@ import { tie } from "@/lib/tie";
  * - prohlášení o právech k záznamu a o svolení zachycených osob (§ 84 a násl. občanského zákoníku)
  * Věk navíc kryje čl. 8 GDPR a § 7 zákona č. 110/2019 Sb. (u služeb informační společnosti 15 let).
  */
-export const CONSENT_VERSION = "2026-10-29-2";
+export const CONSENT_VERSION = "2026-10-29-3";
 
 export const consentFields = [
   {
@@ -23,7 +23,7 @@ export const consentFields = [
   {
     key: "personalData",
     text: tie(
-      `Souhlasím, aby město Unhošť zpracovalo mé jméno, e-mail, telefon a nahrané video, včetně mé podoby a hlasu, pokud v něm jsou. Účel je posoudit příspěvek, případně ho sestříhat a zařadit do filmu „${EVENT_NAME}“, veřejně ho promítnout 1. ledna 2027 na náměstí v Unhošti a případně zveřejnit hotový film. Souhlas je dobrovolný a můžu ho odvolat. Odvoláním se ruší další použití mého záběru. Už proběhlé promítání vzít zpět nejde a z hotového filmu se záběr odstraní, jen když to půjde bez rozbití celého filmu. Podrobnosti jsou v informacích o zpracování na této stránce.`,
+      `Souhlasím, aby město Unhošť zpracovalo mé jméno, e-mail, telefon, popis videa a nahrané video, včetně mé podoby a hlasu, pokud v něm jsou. Účel je posoudit příspěvek, případně ho sestříhat a zařadit do filmu „${EVENT_NAME}“, veřejně ho promítnout 1. ledna 2027 na náměstí v Unhošti a případně zveřejnit hotový film. Souhlas je dobrovolný a můžu ho odvolat. Odvoláním se ruší další použití mého záběru. Už proběhlé promítání vzít zpět nejde a z hotového filmu se záběr odstraní, jen když to půjde bez rozbití celého filmu. Podrobnosti jsou v informacích o zpracování na této stránce.`,
     ),
   },
   {

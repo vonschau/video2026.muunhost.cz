@@ -83,6 +83,7 @@ function parseDraft(value: unknown): DraftInput | null {
     typeof value.name !== "string" ||
     typeof value.email !== "string" ||
     typeof value.phone !== "string" ||
+    typeof value.description !== "string" ||
     typeof value.originalName !== "string" ||
     typeof value.fileSize !== "number" ||
     typeof value.consentVersion !== "string"
@@ -94,6 +95,7 @@ function parseDraft(value: unknown): DraftInput | null {
     name: value.name,
     email: value.email,
     phone: value.phone,
+    description: value.description,
     originalName: value.originalName,
     fileSize: value.fileSize,
     consentVersion: value.consentVersion,

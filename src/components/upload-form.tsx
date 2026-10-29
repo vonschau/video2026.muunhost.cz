@@ -12,7 +12,7 @@ import {
   videoFileName,
 } from "@/lib/video";
 import { czechPhone, formatNationalPhone, nationalPhoneDigits } from "@/lib/phone";
-import { validateDraft, type DraftInput } from "@/lib/submission";
+import { MAX_DESCRIPTION_LENGTH, validateDraft, type DraftInput } from "@/lib/submission";
 
 const fieldClass =
   "w-full rounded-lg border border-unhost-navy/20 bg-white px-3 py-3 text-base text-ink outline-none focus:border-unhost-blue focus:ring-2 focus:ring-unhost-blue/30";
@@ -28,6 +28,7 @@ export function UploadForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [consents, setConsents] = useState<Record<ConsentKey, boolean>>({
     age: false,
@@ -88,7 +89,7 @@ export function UploadForm() {
 
     const faxField = new FormData(event.currentTarget).get("fax");
     const fax = typeof faxField === "string" ? faxField : "";
-    const input = draftInput(file, { name, email, phone, consents });
+    const input = draftInput(file, { name, email, phone, description, consents });
     const problem = validateDraft(input);
     if (problem) {
       setError(problem);
@@ -174,6 +175,7 @@ export function UploadForm() {
     setName("");
     setEmail("");
     setPhone("");
+    setDescription("");
     setFile(null);
     setConsents({ age: false, personalData: false, license: false, rights: false });
     setError(null);
@@ -318,6 +320,21 @@ export function UploadForm() {
         ) : null}
       </div>
 
+      <label className="block">
+        <span className="mb-2 block font-semibold text-unhost-navy">Popis videa</span>
+        <textarea
+          className={`${fieldClass} min-h-28 resize-y`}
+          name="description"
+          rows={3}
+          maxLength={MAX_DESCRIPTION_LENGTH}
+          placeholder={"Den dětí u\u00A0Bulharu, Masopust, …"}
+          value={description}
+          disabled={busy}
+          onChange={(event) => setDescription(event.target.value)}
+          required
+        />
+      </label>
+
       <div hidden aria-hidden="true">
         <label>
           Fax
@@ -340,7 +357,7 @@ export function UploadForm() {
             tvůrce této stránky. Veřejně na internetu neleží.
           </li>
           <li>Soubor se ukládá v EU (Frankfurt nad Mohanem) u Vercel Inc. Firma sídlí v USA, proto může jít o předání mimo EU, kryté EU-US Data Privacy Framework a standardními smluvními doložkami.</li>
-          <li>Kontakt a video mažeme do 31.&nbsp;března 2027. Souhlas můžete odvolat. Už proběhlé promítání vzít zpět nejde.</li>
+          <li>Kontakt, popis a video mažeme do 31.&nbsp;března 2027. Souhlas můžete odvolat. Už proběhlé promítání vzít zpět nejde.</li>
         </ul>
         <details className="mt-4">
           <summary className="cursor-pointer font-semibold text-unhost-blue">
@@ -446,6 +463,7 @@ function draftInput(
     name: string;
     email: string;
     phone: string;
+    description: string;
     consents: Record<ConsentKey, boolean>;
   },
 ): DraftInput {
@@ -453,6 +471,7 @@ function draftInput(
     name: values.name,
     email: values.email,
     phone: czechPhone(values.phone) ?? values.phone,
+    description: values.description,
     originalName: file.name,
     fileSize: file.size,
     consentVersion: CONSENT_VERSION,
