@@ -25,6 +25,7 @@ export async function AdminGate({
       name: record.name,
       email: record.email,
       phone: record.phone,
+      description: record.description,
       fileName: record.fileName,
       byteSize: record.byteSize ?? record.declaredSize,
       completedAt: record.completedAt ?? record.createdAt,

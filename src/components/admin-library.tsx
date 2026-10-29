@@ -9,6 +9,7 @@ export type AdminVideo = {
   name: string;
   email: string;
   phone: string;
+  description: string;
   fileName: string;
   byteSize: number;
   completedAt: string;
@@ -72,6 +73,9 @@ export function AdminLibrary({ videos }: { videos: AdminVideo[] }) {
                 <p className="mt-1 text-sm text-ink">
                   {formatBytes(video.byteSize)} · {formatWhen(video.completedAt)}
                 </p>
+                {video.description ? (
+                  <p className="mt-3 whitespace-pre-wrap leading-6 text-ink">{video.description}</p>
+                ) : null}
                 <p className="mt-3 font-semibold text-unhost-navy">{video.name}</p>
                 <p className="text-sm leading-6">
                   <a className="underline decoration-unhost-blue/40 underline-offset-4" href={`mailto:${video.email}`}>

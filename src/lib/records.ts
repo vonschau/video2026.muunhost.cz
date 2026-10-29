@@ -145,7 +145,8 @@ async function readRecord(pathname: string): Promise<SubmissionRecord | null> {
     if (!result || result.statusCode !== 200) return null;
     const text = await new Response(result.stream).text();
     const parsed: unknown = JSON.parse(text);
-    return isSubmissionRecord(parsed) ? parsed : null;
+    const record = withDescription(parsed);
+    return isSubmissionRecord(record) ? record : null;
   } catch (error) {
     if (error instanceof BlobNotFoundError) return null;
     throw error;
@@ -184,4 +185,10 @@ async function mapPool<T, R>(
   const workers = Math.min(limit, items.length);
   await Promise.all(Array.from({ length: workers }, () => worker()));
   return results;
+}
+
+function withDescription(value: unknown): unknown {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return value;
+  if ("description" in value && typeof value.description === "string") return value;
+  return { ...value, description: "" };
 }

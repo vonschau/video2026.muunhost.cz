@@ -40,7 +40,7 @@ export function PrivacyNotice() {
           <li>uchování záznamu o tom, co jste odsouhlasili, abychom souhlas uměli doložit.</li>
         </ul>
         <p>
-          Jméno, e-mail, telefon a obsah videa zpracováváme na základě vašeho
+          Jméno, e-mail, telefon, popis videa a obsah videa zpracováváme na základě vašeho
           souhlasu podle čl.&nbsp;6 odst.&nbsp;1 písm.&nbsp;a) nařízení (EU)
           2016/679. Souhlas je zvlášť od licence k užití videa a od prohlášení,
           že máte práva k záznamu. Všechna tři potvrzení jsou podmínkou toho,
@@ -64,7 +64,7 @@ export function PrivacyNotice() {
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-unhost-navy">Jaké údaje a odkud</h2>
         <p>
-          Od vás bereme jméno, e-mail, telefon, video a technický údaj o odeslání:
+          Od vás bereme jméno, e-mail, telefon, popis videa, video a technický údaj o odeslání:
           čas a znění potvrzení, které jste zaškrtli, a identifikaci prohlížeče.
           IP adresu si k příspěvku neukládáme.
         </p>
@@ -115,7 +115,7 @@ export function PrivacyNotice() {
       <section className="space-y-2">
         <h2 className="text-lg font-bold text-unhost-navy">Jak dlouho údaje držíme</h2>
         <p>
-          Nahrané video a kontaktní údaje smažeme do 31.&nbsp;března 2027,
+          Nahrané video, popis a kontaktní údaje smažeme do 31.&nbsp;března 2027,
           pokud je nebudeme muset držet déle kvůli uplatnění práv. Záznam
           o uděleném souhlasu necháme ještě tři roky poté, abychom ho uměli
           doložit.
@@ -125,7 +125,7 @@ export function PrivacyNotice() {
           může město uchovat jako záznam roku 2026. Odvoláte-li souhlas až
           po zařazení, záběr z už hotového filmu odstraníme, jen pokud to půjde
           bez rozbití celého díla. Už proběhlé promítání vzít zpět nejde.
-          Samotnou nahrávku a kontaktní údaje smažeme i tak.
+          Samotnou nahrávku, popis a kontaktní údaje smažeme i tak.
         </p>
       </section>
 
