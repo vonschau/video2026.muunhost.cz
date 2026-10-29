@@ -374,8 +374,7 @@ export function UploadForm() {
         <p className="text-sm leading-6 text-ink">
           Čtyři samostatné věci: že formulář můžete vyplnit, souhlas se
           zpracováním údajů, licence k videu a prohlášení, že k záznamu máte
-          práva. Všechna jsou nutná, jinak video nepřijmeme. Žádné není předem
-          zaškrtnuté.
+          práva. Všechna jsou nutná, jinak video nepřijmeme.
         </p>
         {consentFields.map((field) => (
           <label key={field.key} className="flex items-start gap-3 text-sm leading-6">
