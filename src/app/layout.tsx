@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Libre_Franklin } from "next/font/google";
+import { DEADLINE_LABEL } from "@/lib/deadline";
+import { EVENT_NAME } from "@/lib/event";
+import { tie } from "@/lib/tie";
 import "./globals.css";
 
 const libreFranklin = Libre_Franklin({
@@ -8,9 +11,13 @@ const libreFranklin = Libre_Franklin({
 });
 
 export const metadata: Metadata = {
-  title: "Video 2026 | Město Unhošť",
-  description:
-    "Stránka pro nahrávání osobních videí o životě v Unhošti v roce 2026 se připravuje. Videa se mohou zařadit do promítání 1. ledna 2027 na náměstí.",
+  title: {
+    default: EVENT_NAME,
+    template: "%s | Město Unhošť",
+  },
+  description: tie(
+    `${EVENT_NAME}. Pošlete video. Výzva platí do ${DEADLINE_LABEL}. Film se 1. ledna 2027 promítá na náměstí.`,
+  ),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
